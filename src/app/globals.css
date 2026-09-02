@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-color: #0f1115;
+  color: #f5f5f4;
+}
+
+/* ---------------------------------------------------------------------- */
+/* PRINT LAYOUT                                                           */
+/* Forces the notice board onto a single portrait A4 page, strips out     */
+/* navigation/buttons/inputs, and keeps badge colours/backgrounds intact. */
+/* ---------------------------------------------------------------------- */
+
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    width: 210mm;
+    height: 297mm;
+  }
+
+  /* Hide anything explicitly marked as non-printable: navbars, buttons,
+     forms, links back to /admin, week selector, etc. */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reveal print-only helper text (e.g. "Printed on ...") */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Force exact colour/background rendering across browsers so badges,
+     highlight panels and bold accent bars come out sharp on paper. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .print-page {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: "" !important;
+  }
+}
+
+.print-only {
+  display: none;
+}

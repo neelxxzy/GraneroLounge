@@ -1,0 +1,50 @@
+// Prisma schema for Lounger Dashboard
+// Uses SQLite for zero-config local setup. Swap provider to "postgresql"
+// and set DATABASE_URL to a Postgres connection string for production.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model WeeklyReport {
+  id                  Int      @id @default(autoincrement())
+
+  // Header / period
+  weekRange           String // e.g. "3rd - 9th August 2026" — display text, auto-generated from weekStart
+  weekStart           DateTime? // Monday of the reporting week; used to auto-suggest the next week's range
+
+  // Sales
+  totalSales          Float // this week's total sales, e.g. 26500
+  previousYearSales   Float // same week, last year, e.g. 20868
+  lflTargetPercent    Float // like-for-like sales target %, e.g. 4.5
+
+  // Stock variance (waste/variance as a % of sales or stock value)
+  foodStockResult     Float // e.g. 0.35
+  foodStockThreshold  Float @default(1.0)
+  drinkStockResult    Float // e.g. 0.33
+  drinkStockThreshold Float @default(0.6)
+
+  // Guest satisfaction & quality
+  npsScore            Int // e.g. 89
+  foodQualityScore    Float @default(0) // out of 5, e.g. 4.56
+  drinkQualityScore   Float @default(0) // out of 5, e.g. 4.32
+
+  // Notices
+  needToKnow          String // free text, can be long
+  dotw                String // Dish of the Week
+  botw                String // Beverage of the Week
+
+  // Focus lists — stored as JSON-encoded string arrays (SQLite has no native array type)
+  bohFocus            String // JSON.stringify(string[])
+  fohFocus            String // JSON.stringify(string[])
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([createdAt])
+}
