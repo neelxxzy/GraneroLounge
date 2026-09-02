@@ -1,7 +1,10 @@
-export const dynamic = 'force-dynamic';
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { toDTO } from "@/lib/types";
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // GET /api/reports/latest — the most recently submitted weekly report.
 export async function GET() {
