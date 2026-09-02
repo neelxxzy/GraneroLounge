@@ -1,1 +1,12 @@
-{}
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/reports/latest/route": "app/api/reports/latest/route.js",
+  "/admin/page": "app/admin/page.js",
+  "/api/reports/[id]/route": "app/api/reports/[id]/route.js",
+  "/login/page": "app/login/page.js",
+  "/icon.png/route": "app/icon.png/route.js",
+  "/api/logout/route": "app/api/logout/route.js",
+  "/api/login/route": "app/api/login/route.js",
+  "/api/reports/route": "app/api/reports/route.js",
+  "/page": "app/page.js"
+}
